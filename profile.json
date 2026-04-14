@@ -1,0 +1,121 @@
+{
+  "profile": {
+    "project_name": "Slotmap",
+    "tagline": "Pin any Solana account layout to a versioned schema and catch breaking changes before mainnet.",
+    "full_description": "Slotmap is a developer toolchain for Solana that lets teams declare versioned account schemas for any Anchor program and automatically diff incoming program binaries against registered layouts before deployment. The CLI command `slotmap diff` fetches the live discriminator map from mainnet via RPC, compares it against the local IDL, and emits structured field-level breaking-change reports including affected borsh offsets, type mutations, and downstream CPI callers. An on-chain PDA registry stores published schema versions so external teams at protocols like Kamino or Meteora can subscribe to upstream layout changes and receive webhook or on-chain event alerts automatically. A CI/CD pre-deploy gate integrates directly into Anchor build pipelines and blocks deployment if breaking changes are detected against registered dependents. Slotmap targets the specific failure mode where cross-program account parsing silently corrupts data or panics at runtime when an upstream protocol upgrades its account struct.",
+    "category": "DevTools",
+    "stage": "MVP",
+    "chain": "solana",
+    "tech_stack": [
+      "Rust",
+      "Anchor IDL v2",
+      "borsh",
+      "zero-copy account deserialization",
+      "Solana RPC getProgramAccounts",
+      "Program Derived Address (PDA) on-chain registry",
+      "TypeScript",
+      "Node.js CLI",
+      "GitHub Actions",
+      "Webhook HTTP integration"
+    ],
+    "ai_tools": [
+      "Cursor",
+      "Claude Code"
+    ],
+    "team_description": "The team consists of Solana protocol engineers with hands-on experience building and auditing Anchor programs across DeFi integrations, including prior work on cross-program invocation tooling and on-chain indexing infrastructure. They have direct exposure to production incidents caused by upstream account layout changes at mid-size Solana protocols.",
+    "roadmap": [
+      {
+        "quarter": "Q1 2026",
+        "status": "completed",
+        "goal": "Ship a working CLI that diffs local Anchor IDL v2 against live on-chain IDL and outputs field-level breaking change reports.",
+        "deliverables": [
+          "`slotmap diff` CLI command parsing borsh struct layouts and emitting structured JSON reports with field offsets, type changes, and discriminator mismatches",
+          "Anchor build hook integration that runs the diff automatically as a pre-deploy step and exits non-zero on breaking changes",
+          "Test suite covering 10 real mainnet programs including Drift, MarginFi, and Phoenix with known historical layout changes"
+        ]
+      },
+      {
+        "quarter": "Q2 2026",
+        "status": "in progress",
+        "goal": "Launch the on-chain PDA schema registry on mainnet and enable downstream teams to subscribe to upstream program schema changes.",
+        "deliverables": [
+          "On-chain PDA registry program deployed to Solana mainnet allowing teams to publish and version account schemas with a `slotmap publish` CLI command",
+          "Subscriber registration system where external teams declare dependencies on upstream program schemas and receive webhook POST notifications on schema changes",
+          "GitHub Actions workflow template that polls the registry for upstream changes and fails CI if a subscribed dependency has an unacknowledged breaking change"
+        ]
+      },
+      {
+        "quarter": "Q3 2026",
+        "status": "upcoming",
+        "goal": "Release a web-based discriminator map explorer and grow the registry to 50+ indexed Solana programs with active downstream subscribers.",
+        "deliverables": [
+          "Visual diff UI showing borsh field offsets, byte sizes, and type changes across program versions with side-by-side schema comparison",
+          "Indexed snapshots of 50+ major Anchor programs including Kamino, Jito, Meteora, and Orca with historical schema version timelines",
+          "On-chain event emission from the registry program so downstream programs can read schema change signals directly inside smart contract logic via CPI"
+        ]
+      }
+    ],
+    "links": {
+      "website": "",
+      "github": "",
+      "telegram": ""
+    },
+    "logo_path": "/Users/aliev_murat/Documents/Claude/Projects/SURGE/startup-generator/output/projects/Slotmap/logo.svg",
+    "pitch_deck_path": "/Users/aliev_murat/Documents/Claude/Projects/SURGE/startup-generator/output/projects/Slotmap/pitch_deck.pptx",
+    "pitch_video_url": ""
+  },
+  "metadata": {
+    "generated_at": "2026-04-14T17:48:49.986859",
+    "source": "startup_generator",
+    "founder": "Founded by AI",
+    "original_idea": {
+      "project_name": "Slotmap",
+      "tagline": "Pin any Solana account layout to a versioned schema and catch breaking changes before mainnet.",
+      "category": "devtools",
+      "stage": "mvp",
+      "chain": "solana",
+      "problem": "Solana programs store state in raw byte arrays with no enforced schema — when a protocol upgrades its account layout (adding a field, reordering discriminators, changing borsh structs), downstream programs and indexers silently break with no warning. In 2026, as Solana composability deepens across Drift, MarginFi, Phoenix, and hundreds of Anchor programs, cross-program account parsing failures are one of the top causes of production incidents, yet there is no standard tooling to catch them before deployment.",
+      "solution": "Slotmap lets developers declare a versioned account schema for any Solana program — expressed as typed field definitions against borsh/zero-copy layouts — and automatically diffs any new program binary against the registered schema before deployment. It runs as a CLI plugin that integrates into Anchor build pipelines, fetches the live discriminator map from mainnet via RPC, compares it against the incoming IDL, and emits structured breaking-change reports with field-level diffs and affected CPI callers. Schemas are stored in an on-chain registry (a simple Program Derived Address store) so external teams can subscribe to upstream schema changes and get alerts automatically.",
+      "target_user": "Solana protocol developers and integration engineers at teams like Kamino, Jito, or Meteora who depend on parsing upstream program accounts in their own smart contracts or off-chain indexers and need to catch breaking layout changes before they cause silent data corruption or runtime panics.",
+      "unique_insight": "Solana's raw byte-packing model gives maximum performance but zero schema enforcement — the ecosystem has accepted this as a fact of life, but composability at scale makes it an acute reliability problem that a lightweight registry layer can solve without changing the runtime.",
+      "tech_stack": [
+        "Rust",
+        "Anchor IDL v2",
+        "borsh",
+        "zero-copy account parsing",
+        "Solana RPC getProgramAccounts",
+        "PDA on-chain registry",
+        "TypeScript CLI",
+        "GitHub Actions integration"
+      ],
+      "core_features": [
+        "CLI command `slotmap diff` that compares a compiled Anchor IDL against the live on-chain IDL and emits field-level breaking change reports",
+        "On-chain PDA schema registry where teams publish versioned account layouts, queryable by any downstream program",
+        "Subscriber alert system: external teams register their dependency on an upstream program's schema and receive webhook or on-chain event notifications when it changes",
+        "CI/CD pre-deploy gate: Anchor build hook that blocks deployment if breaking changes are detected against registered downstream dependents",
+        "Discriminator map explorer: visual diff UI showing borsh field offsets, sizes, and type changes across program versions"
+      ],
+      "why_now": "Solana's composability surface exploded in 2025-2026 with restaking vaults, liquidity layer protocols, and cross-program yield strategies — teams are now parsing 10-20 upstream program accounts in a single transaction, making any upstream layout change catastrophic. Anchor IDL v2 standardized enough of the schema surface that a diffing tool is now actually feasible to build without custom parsers for every protocol."
+    },
+    "design_dna": {
+      "heading_font": "Orbitron",
+      "body_font": "Karla",
+      "palette_name": "slate_coral",
+      "palette": {
+        "name": "slate_coral",
+        "bg": "#0F172A",
+        "surface": "#1E293B",
+        "accent": "#F43F5E",
+        "accent2": "#FB7185",
+        "text": "#FFFFFF",
+        "dim": "#94A3B8",
+        "mode": "dark"
+      },
+      "layout": "bento",
+      "mood": "glassmorphism",
+      "animation": "float",
+      "corner_radius": "20px"
+    },
+    "logo_style": "monogram"
+  }
+}
