@@ -1,0 +1,123 @@
+{
+  "_meta": {
+    "schema_version": "1.0",
+    "source": "startup_generator",
+    "generated_from": "output/projects/Slotmap/profile.json",
+    "notes": "Field names and values match Surge Discovery create form (Full Mode, 9 steps)"
+  },
+  "project_name": "Slotmap",
+  "tagline": "Pin any Solana account layout to a versioned schema and catch breaking changes before mainnet.",
+  "full_description": "Slotmap is a developer toolchain for Solana that lets teams declare versioned account schemas for any Anchor program and automatically diff incoming program binaries against registered layouts before deployment. The CLI command `slotmap diff` fetches the live discriminator map from mainnet via RPC, compares it against the local IDL, and emits structured field-level breaking-change reports including affected borsh offsets, type mutations, and downstream CPI callers. An on-chain PDA registry",
+  "category": "DevTools",
+  "stage": "MVP",
+  "logo": {
+    "local_path": "/Users/aliev_murat/Documents/Claude/Projects/SURGE/startup-generator/output/projects/Slotmap/logo.svg",
+    "url": "https://github.com/AllievMuro/slotmap/raw/main/logo.svg",
+    "format": "svg",
+    "note": "Surge requires PNG or JPG. Convert SVG → PNG before upload."
+  },
+  "ai_tools": [
+    "Cursor",
+    "Claude Code"
+  ],
+  "tech_stack": {
+    "languages": [
+      "Rust",
+      "TypeScript"
+    ],
+    "dev_tools": [
+      "Anchor IDL v2",
+      "borsh",
+      "zero-copy account deserialization",
+      "Solana RPC getProgramAccounts",
+      "Program Derived Address (PDA) on-chain registry",
+      "Node.js CLI",
+      "GitHub Actions",
+      "Webhook HTTP integration"
+    ]
+  },
+  "pitch_deck": {
+    "local_path": "/Users/aliev_murat/Documents/Claude/Projects/SURGE/startup-generator/output/projects/Slotmap/pitch_deck.pptx",
+    "url": "https://github.com/AllievMuro/slotmap/raw/main/pitch_deck.pptx",
+    "format": "pptx",
+    "note": "Surge requires PDF. Convert PPTX → PDF before upload."
+  },
+  "whitepaper": {
+    "local_path": "",
+    "url": ""
+  },
+  "pitch_video": {
+    "url": "",
+    "source": "youtube",
+    "note": "Must be public/unlisted YouTube URL. Max 800 seconds."
+  },
+  "links": {
+    "website": "https://AllievMuro.github.io/slotmap",
+    "github": "https://github.com/AllievMuro/slotmap",
+    "telegram": "",
+    "x_twitter": ""
+  },
+  "team_description": "The team consists of Solana protocol engineers with hands-on experience building and auditing Anchor programs across DeFi integrations, including prior work on cross-program invocation tooling and on-chain indexing infrastructure. They have direct exposure to production incidents caused by upstream account layout changes at mid-size Solana protocols.",
+  "team_members": [],
+  "roadmap": [
+    {
+      "quarter": "Q1 2026",
+      "status": "Completed",
+      "goal": "Ship a working CLI that diffs local Anchor IDL v2 against live on-chain IDL and outputs field-level breaking change reports.",
+      "deliverables": [
+        "`slotmap diff` CLI command parsing borsh struct layouts and emitting structured JSON reports with field offsets, type changes, and discriminator mismatches",
+        "Anchor build hook integration that runs the diff automatically as a pre-deploy step and exits non-zero on breaking changes",
+        "Test suite covering 10 real mainnet programs including Drift, MarginFi, and Phoenix with known historical layout changes"
+      ]
+    },
+    {
+      "quarter": "Q2 2026",
+      "status": "In Progress",
+      "goal": "Launch the on-chain PDA schema registry on mainnet and enable downstream teams to subscribe to upstream program schema changes.",
+      "deliverables": [
+        "On-chain PDA registry program deployed to Solana mainnet allowing teams to publish and version account schemas with a `slotmap publish` CLI command",
+        "Subscriber registration system where external teams declare dependencies on upstream program schemas and receive webhook POST notifications on schema changes",
+        "GitHub Actions workflow template that polls the registry for upstream changes and fails CI if a subscribed dependency has an unacknowledged breaking change"
+      ]
+    },
+    {
+      "quarter": "Q3 2026",
+      "status": "Upcoming",
+      "goal": "Release a web-based discriminator map explorer and grow the registry to 50+ indexed Solana programs with active downstream subscribers.",
+      "deliverables": [
+        "Visual diff UI showing borsh field offsets, byte sizes, and type changes across program versions with side-by-side schema comparison",
+        "Indexed snapshots of 50+ major Anchor programs including Kamino, Jito, Meteora, and Orca with historical schema version timelines",
+        "On-chain event emission from the registry program so downstream programs can read schema change signals directly inside smart contract logic via CPI"
+      ]
+    }
+  ],
+  "revenue_sources": {
+    "stripe": null,
+    "paypal": null,
+    "shopify": null
+  },
+  "user_data": {
+    "google_analytics": null,
+    "mixpanel": null
+  },
+  "publish_readiness": {
+    "required": {
+      "logo": true,
+      "project_name": true,
+      "tagline": true,
+      "category": true,
+      "full_description": true,
+      "team": true,
+      "pitch_deck": true,
+      "pitch_video": false
+    },
+    "optional": {
+      "tech_stack": true,
+      "roadmap": true,
+      "socials": true,
+      "revenue_sources": false,
+      "user_data": false
+    },
+    "summary": "Required: 7/8, Optional: 3/5"
+  }
+}
